@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOLLOW ME!</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: Arial,sans-serif; }
+body {
+  height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column;
+  text-align: center; overflow: hidden; color: white; position: relative;
+  background: linear-gradient(135deg,#0d1b2a,#1b263b,#415a77,#1b263b);
+  background-size: 400% 400%; animation: gradientBG 20s ease infinite, fadeIn 1.5s forwards; opacity: 0;
+}
+@keyframes fadeIn { to { opacity:1; } }
+@keyframes gradientBG { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+
+#welcome { font-size:28px; font-weight:bold; margin-bottom:30px; text-shadow:2px 2px 6px rgba(0,0,0,0.5); animation: pulse 2s infinite; z-index:2; }
+@keyframes pulse { 0%,100% {transform:scale(1);} 50%{transform:scale(1.05);} }
+
+.main-icons { display: flex; gap:20px; position: relative; z-index:2; }
+.main-icons a { display:flex; justify-content:center; align-items:center; width:60px; height:60px; border-radius:50%; text-decoration:none; background:transparent; box-shadow:0 6px 15px rgba(0,0,0,0.35); transform:translateY(20px); opacity:0; transition: transform 0.3s, background 0.3s, box-shadow 0.3s; position:relative; }
+.main-icons a:nth-child(1){animation: iconEnter 0.8s forwards 0.3s;}
+.main-icons a:nth-child(2){animation: iconEnter 0.8s forwards 0.6s;}
+.main-icons a:nth-child(3){animation: iconEnter 0.8s forwards 0.9s;}
+@keyframes iconEnter { to { opacity:1; transform: translateY(0); } }
+.main-icons a:hover.tg{ background-color:#0088cc; }
+.main-icons a:hover.ig{ background: linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4); }
+.main-icons a:hover.tt{ background-color:#69C9D0; }
+.main-icons a:hover{ transform: scale(1.15); box-shadow:0 0 25px rgba(255,255,255,0.8); }
+.main-icons img{ width:36px;height:36px; z-index:1; transition: transform 0.2s, box-shadow 0.2s;}
+
+.social-button { position:fixed; bottom:30px; right:30px; width:60px; height:60px; border-radius:50%; background:white; color:#1b263b; font-size:36px; display:flex; justify-content:center; align-items:center; box-shadow:0 8px 15px rgba(0,0,0,0.4); cursor:pointer; z-index:2; transition: transform 0.2s, box-shadow 0.3s; }
+.social-button:hover{ box-shadow:0 0 30px rgba(255,255,255,0.9); }
+
+.social-popup{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:100; }
+.popup-content{ position: relative; background:#1b263b; border-radius:20px; max-width:400px; width:90%; animation: popIn 0.3s ease; color:white; overflow:hidden; box-shadow:0 12px 30px rgba(0,0,0,0.5); }
+.popup-header{ background: linear-gradient(90deg,#0d1b2a,#415a77); color:white; text-align:center; font-size:22px; font-weight:bold; padding:20px; }
+.close-btn{ position:absolute; top:15px; right:20px; font-size:28px; color:white; width:32px; height:32px; background: rgba(255,255,255,0.2); border-radius:50%; display:flex; justify-content:center; align-items:center; cursor:pointer; z-index:10; transition: background 0.2s; }
+.close-btn:hover{ background: rgba(255,255,255,0.4); }
+.popup-body{ padding:20px; text-align:center; }
+.message-section{ background:#0d1b2a; border-radius:12px; padding:12px; margin-top:15px; font-size:14px; color:#ccc; line-height:1.4; }
+
+@keyframes popIn {0%{transform:scale(0.5);opacity:0;}100%{transform:scale(1);opacity:1;}}
+@keyframes pulse {0%,100%{transform:scale(1);}50%{transform:scale(1.05);}}
+
+.cursor-trail { position:absolute; width:12px; height:12px; border-radius:50%; pointer-events:none; opacity:0.8; z-index:3; mix-blend-mode: screen; }
+.particle { position:absolute; width:3px; height:3px; background: rgba(255,255,255,0.7); border-radius:50%; opacity:0.6; animation: float 5s linear infinite; z-index:1; }
+@keyframes float { 0%{transform: translateY(0);} 50%{transform: translateY(-30px);} 100%{transform: translateY(0);} }
+
+@media(max-width:600px){ #welcome{font-size:22px;margin-bottom:20px;} .main-icons a{width:50px;height:50px;} .main-icons img{width:28px;height:28px;} .social-button{width:50px;height:50px;font-size:28px; bottom:20px; right:20px;} }
+</style>
+</head>
+<body>
+
+<div id="welcome">WELCOME!<br>BEST EDITOR IN ETHIOPIA</div>
+
+<div class="main-icons">
+  <a href="https://t.me/asiksale" target="_blank" class="tg"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram"></a>
+  <a href="https://instagram.com/asik.aep" target="_blank" class="ig"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+  <a href="https://www.tiktok.com/@asik._aep" target="_blank" class="tt"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/tiktok.svg" alt="TikTok"></a>
+</div>
+
+<div class="social-button" id="socialButton">+</div>
+
+<div class="social-popup" id="socialPopup">
+  <div class="popup-content">
+    <div class="popup-header">MORE INFO</div>
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <div class="popup-body">
+      <div class="message-section">
+        💡 DM ME FOR ANY EDITS.<br>📩 FOR BUSINESS INQUIRIES, DM ME ON TELEGRAM OR INSTAGRAM.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="particle-container"></div>
+
+<script>
+// Popup
+const socialButton=document.getElementById("socialButton");
+const socialPopup=document.getElementById("socialPopup");
+const closeBtn=document.getElementById("closeBtn");
+socialButton.addEventListener("click",()=>{socialPopup.style.display="flex";});
+closeBtn.addEventListener("click",()=>{socialPopup.style.display="none";});
+window.addEventListener("click", e=>{if(e.target===socialPopup) socialPopup.style.display="none";});
+
+// Floating icons
+function randomFloat(el,maxY=15,durationRange=[3,5]){
+  let dur=durationRange[0]+Math.random()*(durationRange[1]-durationRange[0]);
+  let dir=Math.random()>0.5?1:-1;
+  el.animate([{transform:`translateY(0)`},{transform:`translateY(${dir*maxY}px)`},{transform:`translateY(0)`}],{duration:dur*1000,iterations:Infinity,easing:"ease-in-out"});
+}
+document.querySelectorAll('.main-icons a').forEach(el=>randomFloat(el,15,[3,5]));
+randomFloat(socialButton,10,[2,4]);
+
+// Cursor neon trail
+const trail=[]; const maxTrail=20;
+let currentColor='linear-gradient(45deg,#ff7eb9,#ff65a3,#ff447d)';
+const attractors=[...document.querySelectorAll('.main-icons a'), socialButton];
+attractors.forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    if(el.classList.contains('tg')) currentColor='linear-gradient(45deg,#00c6ff,#0088cc)';
+    if(el.classList.contains('ig')) currentColor='linear-gradient(45deg,#f58529,#dd2a7b,#8134af,#515bd4)';
+    if(el.classList.contains('tt')) currentColor='linear-gradient(45deg,#69C9D0,#0f9ee0)';
+    if(el===socialButton) currentColor='linear-gradient(45deg,#ffffff,#cccccc)';
+  });
+  el.addEventListener('mouseleave',()=>{ currentColor='linear-gradient(45deg,#ff7eb9,#ff65a3,#ff447d)'; });
+});
+document.body.addEventListener('mousemove', e=>{
+  const dot=document.createElement('div'); dot.className='cursor-trail';
+  dot.style.left=e.clientX+'px'; dot.style.top=e.clientY+'px'; dot.style.background=currentColor;
+  let nearest=null,minDist=Infinity;
+  attractors.forEach(el=>{
+    const rect=el.getBoundingClientRect();
+    const cx=rect.left+rect.width/2, cy=rect.top+rect.height/2;
+    const dist=Math.hypot(cx-e.clientX, cy-e.clientY);
+    if(dist<minDist){ nearest={x:cx,y:cy}; minDist=dist; }
+  });
+  if(nearest && minDist<200){
+    const midX=(e.clientX+nearest.x)/2 + (Math.random()-0.5)*40;
+    const midY=(e.clientY+nearest.y)/2 + (Math.random()-0.5)*40;
+    dot.style.transform=`translate(-50%,-50%) translate(${midX-e.clientX}px,${midY-e.clientY}px) scale(1)`;
+  } else dot.style.transform='translate(-50%,-50%) scale(1)';
+  document.body.appendChild(dot);
+  trail.push(dot);
+  if(trail.length>maxTrail) trail.shift().remove();
+  trail.forEach((d,i)=>{ d.style.opacity=0.5 - i*0.02; d.style.transform+=` scale(${1-i*0.05})`; });
+});
+
+// Background particles
+const particleContainer=document.getElementById('particle-container');
+for(let i=0;i<60;i++){
+  const p=document.createElement('div'); p.className='particle';
+  p.style.left=Math.random()*100+'vw'; p.style.top=Math.random()*100+'vh';
+  p.style.width=(1+Math.random()*3)+'px'; p.style.height=(1+Math.random()*3)+'px';
+  p.style.animationDuration=(3+Math.random()*5)+'s'; p.style.opacity=Math.random()*0.6+0.2;
+  particleContainer.appendChild(p);
+}
+</script>
+
+</body>
+</html>
